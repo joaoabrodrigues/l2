@@ -1,0 +1,31 @@
+services:
+
+  postgres:
+    image: postgres
+    volumes:
+      - ./ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
+      - ./dml.sql:/docker-entrypoint-initdb.d/dml.sql
+    environment:
+      POSTGRES_PASSWORD: "SecureDBPassword!!"
+    ports:
+      - "5432:5432"
+    networks:
+      - packing_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: packing_app
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/orders
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    networks:
+      - packing_network
+
+networks:
+  packing_network:
+    driver: bridge

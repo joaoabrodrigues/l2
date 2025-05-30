@@ -1,0 +1,29 @@
+secretKey: 8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb
+
+server:
+  port: 8080
+
+
+spring:
+  application:
+    name: packing
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${DB_URL}
+    username: postgres
+    password: SecureDBPassword!!
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format-sql: true
+      show-sql: true
+  sql:
+    init:
+      platform: postgres
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
